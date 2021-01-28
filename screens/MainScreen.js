@@ -69,18 +69,26 @@ const SampleData = () => {
   } 
 
  
-const MainContent = ({navigation}) => {
-
-  const num = 2;
+const MainContent = ({navigation}) => {//전체게시판 뜨도록(4개)
+  const Bid = [
+  {id: 1, name:"학교 공지사항"},
+  {id :2, name:"학생회 공지사항"},
+  {id: 3, name:"익명 게시판"},
+  {id:4, name:"중고 나눔거래"}
+  ]
   return (
     <View>
+      {Bid.map((board)=>(
      <TouchableOpacity  style={styles.line}
-        onPress={()=>{navigation.navigate("Community",{id: num})}}>
-          <Text style={{fontSize:30}}>익명게시판</Text>
+        onPress={()=>{navigation.navigate("Community",{id: board.id, name:board.name})}} key={board.id}>
+          <Text style={{fontSize:30}}>{board.name}</Text>
         </TouchableOpacity>
+      ))
+      }
   </View>
   )
 }
+
 const TwoLineText = () =>{
     return(
       <View style={{paddingTop:10}}>
@@ -109,9 +117,7 @@ export default function MainScreen(){
           <Stack.Screen name="default" component={DefaultScreen} options={{headerShown: false}}/>
           <Stack.Screen name="Community" component={Community} />
           <Stack.Screen name="Post" component={Post} /> 
-          <Stack.Screen name="Upload" component={Upload} options={
-            {headerRight: () => (<Button title="upload"/>
-      ) }} />
+          <Stack.Screen name="Upload" component={Upload} options={{headerShown: false}} />
          </Stack.Navigator>
          </IdContext.Provider>
     );
